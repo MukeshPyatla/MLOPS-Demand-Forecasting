@@ -27,52 +27,54 @@ We implement a batch-processing MLOps pipeline on Azure that automatically retra
   * MLflow tracking experiments and the model being registered in the AML Model Registry.
 
 ![Architecture Diagram]
-```mermaid
 graph TD
-    subgraph "Local / GitHub"
-        A[Developer] -- Pushes Code --> G[GitHub Repo];
-        G -- Triggers on Push --> GA[GitHub Actions CI/CD];
+    subgraph "CI/CD & Version Control"
+        G[<img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg' width='40' /> <br> GitHub Repo]
+        GA[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/githubactions/githubactions-original.svg' width='40' /> <br> GitHub Actions]
     end
 
-    subgraph "Azure Cloud"
-        subgraph "Provisioning (One-Time)"
-            T[Terraform];
+    subgraph "Azure Cloud Platform"
+        T[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg' width='40' /> <br> Terraform]
+
+        subgraph "Data Storage (Azure Blob)"
+            BS_Raw[raw-data container]
+            BS_Proc[processed-data container]
         end
 
-        subgraph "Data & ML Pipeline (Automated)"
-            SB[Azure Blob Storage];
-            DB[Azure Databricks];
-            AML[Azure Machine Learning Workspace];
-            REG[AML Model Registry];
+        subgraph "ML Execution & Orchestration"
+            AML[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg' width='40' /> <br> AML Workspace]
+            DB[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/azuredatabricks/azuredatabricks-original.svg' width='40' /> <br> Azure Databricks ETL]
+            Compute[AML Compute Cluster]
+            Registry[AML Model Registry]
         end
     end
 
-    %% Define Workflow
-    GA -- "1. Runs terraform apply" --> T;
-    T -- "Provisions" --> SB;
-    T -- "Provisions" --> DB;
-    T -- "Provisions" --> AML;
+    %% Define the workflow connections
+    G -- "1. Code Push" --> GA
+    GA -- "2. Runs terraform apply" --> T
+    T -- "3. Provisions Resources" --> AML & DB & BS_Raw & BS_Proc
 
-    GA -- "2. Uploads Raw Data" --> SB_Raw[raw-data container];
-    
-    GA -- "3. Triggers ML Pipeline in AML" --> AML;
-    
-    AML -- "Runs ETL Job on" --> DB;
-    DB -- "Reads from" --> SB_Raw;
-    DB -- "Writes Processed Data to" --> SB_Proc[processed-data container];
-    
-    AML -- "Runs Training Job" --> Train[Training Script on AML Compute];
-    Train -- "Reads from" --> SB_Proc;
-    Train -- "Uses MLflow for Tracking" --> AML;
-    Train -- "Trains Prophet Model & Registers" --> REG;
+    GA -- "4. Uploads CSV" --> BS_Raw
+    GA -- "5. Triggers AML Pipeline" --> AML
 
-    %% Style Definitions
-    style G fill:#282C34,stroke:#FFF,stroke-width:2px,color:#FFF
-    style GA fill:#2088FF,stroke:#FFF,stroke-width:2px,color:#FFF
-    style T fill:#623CE4,stroke:#FFF,stroke-width:2px,color:#FFF
-    style AML fill:#0078D4,stroke:#FFF,stroke-width:2px,color:#FFF
-    style DB fill:#FF3600,stroke:#FFF,stroke-width:2px,color:#FFF
-    style SB fill:#5BC5F2,stroke:#FFF,stroke-width:2px,color:#FFF
+    AML -- "6. Runs ETL Job on" --> DB
+    DB -- "7. Reads Raw Data" --> BS_Raw
+    DB -- "8. Writes Processed Data" --> BS_Proc
+
+    AML -- "9. Runs Training Job on" --> Compute
+    Compute -- "10. Reads Processed Data" --> BS_Proc
+    Compute -- "11. Registers Model" --> Registry
+    
+    %% Style for modern look
+    style G fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style GA fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style T fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style AML fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
+    style DB fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
+    style Compute fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
+    style Registry fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
+    style BS_Raw fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style BS_Proc fill:#fff3e0,stroke:#ff9800,stroke-width:2px
 
 ## 3. Tech Stack
 
