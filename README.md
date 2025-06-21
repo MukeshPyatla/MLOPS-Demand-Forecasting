@@ -26,8 +26,7 @@ We implement a batch-processing MLOps pipeline on Azure that automatically retra
   * The training job using a compute cluster to train a Prophet model.
   * MLflow tracking experiments and the model being registered in the AML Model Registry.
 
-![Architecture Diagram]
-graph TD
+![Architecture Diagram](graph TD
     subgraph "CI/CD & Version Control"
         G[<img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg' width='40' /> <br> GitHub Repo]
         GA[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/githubactions/githubactions-original.svg' width='40' /> <br> GitHub Actions]
@@ -74,7 +73,8 @@ graph TD
     style Compute fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
     style Registry fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
     style BS_Raw fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style BS_Proc fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style BS_Proc fill:#fff3e0,stroke:#ff9800,stroke-width:2px)
+
 
 ## 3. Tech Stack
 
