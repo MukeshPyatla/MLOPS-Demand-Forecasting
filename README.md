@@ -26,55 +26,7 @@ We implement a batch-processing MLOps pipeline on Azure that automatically retra
   * The training job using a compute cluster to train a Prophet model.
   * MLflow tracking experiments and the model being registered in the AML Model Registry.
 
-![Architecture Diagram](graph TD
-    subgraph "CI/CD & Version Control"
-        G[<img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg' width='40' /> <br> GitHub Repo]
-        GA[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/githubactions/githubactions-original.svg' width='40' /> <br> GitHub Actions]
-    end
-
-    subgraph "Azure Cloud Platform"
-        T[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg' width='40' /> <br> Terraform]
-
-        subgraph "Data Storage (Azure Blob)"
-            BS_Raw[raw-data container]
-            BS_Proc[processed-data container]
-        end
-
-        subgraph "ML Execution & Orchestration"
-            AML[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg' width='40' /> <br> AML Workspace]
-            DB[<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/azuredatabricks/azuredatabricks-original.svg' width='40' /> <br> Azure Databricks ETL]
-            Compute[AML Compute Cluster]
-            Registry[AML Model Registry]
-        end
-    end
-
-    %% Define the workflow connections
-    G -- "1. Code Push" --> GA
-    GA -- "2. Runs terraform apply" --> T
-    T -- "3. Provisions Resources" --> AML & DB & BS_Raw & BS_Proc
-
-    GA -- "4. Uploads CSV" --> BS_Raw
-    GA -- "5. Triggers AML Pipeline" --> AML
-
-    AML -- "6. Runs ETL Job on" --> DB
-    DB -- "7. Reads Raw Data" --> BS_Raw
-    DB -- "8. Writes Processed Data" --> BS_Proc
-
-    AML -- "9. Runs Training Job on" --> Compute
-    Compute -- "10. Reads Processed Data" --> BS_Proc
-    Compute -- "11. Registers Model" --> Registry
-    
-    %% Style for modern look
-    style G fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style GA fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style T fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style AML fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
-    style DB fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
-    style Compute fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
-    style Registry fill:#e0f7fa,stroke:#0078d4,stroke-width:2px
-    style BS_Raw fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style BS_Proc fill:#fff3e0,stroke:#ff9800,stroke-width:2px)
-
+![Architecture Diagram](https://github.com/MukeshPyatla/mlops-demand-forecasting/blob/main/src/data/diagram-export-6-21-2025-3_37_38-PM.png)
 
 ## 3. Tech Stack
 
