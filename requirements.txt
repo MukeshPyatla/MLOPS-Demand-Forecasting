@@ -1,0 +1,6 @@
+pandas
+numpy
+scikit-learn
+azure-identity
+azure-ai-ml
+pyarrow

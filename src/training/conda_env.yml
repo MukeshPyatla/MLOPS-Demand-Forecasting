@@ -1,0 +1,14 @@
+name: demand-forecasting-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - azure-ai-ml
+    - azure-identity
+    - mltable
+    - pandas==1.5.3
+    - scikit-learn
+    - prophet # Note: Prophet is often installed via pip in conda envs
+    - pyarrow
