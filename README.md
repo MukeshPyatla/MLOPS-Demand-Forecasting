@@ -15,17 +15,6 @@ This project builds an automated ML system to provide accurate, timely demand fo
 We implement a batch-processing MLOps pipeline on Azure that automatically retrains and generates forecasts on a schedule.
 
 **Architecture Diagram:**
-
-* **(ACTION)**: Create an architecture diagram and embed it here. Tools like diagrams.net (draw.io) are great for this. Your diagram should show:
-  * GitHub Actions triggering the workflow.
-  * Terraform provisioning resources.
-  * Raw data (CSV) in Blob Storage.
-  * Azure Databricks running the ETL/feature engineering job.
-  * Processed data (Parquet) in Blob Storage.
-  * Azure Machine Learning orchestrating the training job.
-  * The training job using a compute cluster to train a Prophet model.
-  * MLflow tracking experiments and the model being registered in the AML Model Registry.
-
 ![Architecture Diagram](https://github.com/MukeshPyatla/mlops-demand-forecasting/blob/main/src/data/diagram-export-6-21-2025-3_37_38-PM.png)
 
 ## 3. Tech Stack
