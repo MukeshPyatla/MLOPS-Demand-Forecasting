@@ -28,20 +28,56 @@ We implement a batch-processing MLOps pipeline on Azure that automatically retra
 - **ML Experiment Tracking**: MLflow
 - **Forecasting Model**: Prophet
 - **Core Language**: Python
+- **Web Interface**: Streamlit
+
+## 3.1. Streamlit App Features
+
+Our interactive web application provides:
+
+- **📊 Data Generation**: Generate synthetic sales data with realistic patterns
+- **🤖 Model Training**: Train Prophet models with customizable parameters
+- **🔮 Forecasting**: Generate demand forecasts with confidence intervals
+- **📈 Analytics**: Comprehensive sales analytics and time series decomposition
+- **📱 Responsive Design**: Works on desktop and mobile devices
+- **🎯 Real-time Updates**: Interactive visualizations and metrics
 
 ## 4. How to Run This Project
 
-### Prerequisites
+### Option 1: Streamlit Cloud Deployment (Recommended)
+
+The easiest way to run this project is through our interactive Streamlit web application:
+
+1. **Deploy to Streamlit Cloud**:
+   - Visit [share.streamlit.io](https://share.streamlit.io)
+   - Sign in with your GitHub account
+   - Click "New app"
+   - Select this repository
+   - Set the main file path to `streamlit_app.py`
+   - Deploy!
+
+2. **Local Development**:
+   ```bash
+   git clone https://github.com/[YOUR_USERNAME]/mlops-demand-forecasting.git
+   cd mlops-demand-forecasting
+   pip install -r requirements.txt
+   streamlit run streamlit_app.py
+   ```
+
+### Option 2: Full Azure MLOps Pipeline
+
+For the complete Azure MLOps pipeline deployment:
+
+#### Prerequisites
 1.  An Azure account with sufficient permissions.
 2.  A GitHub account.
 3.  Azure CLI installed locally.
 4.  Terraform installed locally.
 
-### Setup & Deployment
+#### Setup & Deployment
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[YOUR_USERNAME]/your-mlops-demand-forecasting.git
-    cd your-mlops-demand-forecasting
+    git clone https://github.com/[YOUR_USERNAME]/mlops-demand-forecasting.git
+    cd mlops-demand-forecasting
     ```
 
 2.  **Configure Azure Credentials for GitHub:**

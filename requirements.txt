@@ -4,3 +4,8 @@ scikit-learn
 azure-identity
 azure-ai-ml
 pyarrow
+streamlit
+plotly
+prophet
+statsmodels
+mlflow
