@@ -1,12 +1,7 @@
 pandas
 numpy
 scikit-learn
-azure-identity
-azure-ai-ml
-pyarrow==12.0.1
 streamlit
 plotly
 prophet
 statsmodels
-protobuf==4.25.3
-mlflow==2.8.1
