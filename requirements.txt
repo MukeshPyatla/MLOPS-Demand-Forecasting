@@ -3,7 +3,7 @@ numpy
 scikit-learn
 azure-identity
 azure-ai-ml
-pyarrow
+pyarrow==12.0.1
 streamlit
 plotly
 prophet
