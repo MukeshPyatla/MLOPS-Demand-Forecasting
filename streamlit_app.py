@@ -13,32 +13,28 @@ warnings.filterwarnings('ignore')
 # Add src to path to import our modules
 sys.path.append('src')
 
-# Import our custom modules (only the data generation for now)
-try:
-    from data.generate_synthetic_data import generate_synthetic_data
-except ImportError:
-    # Fallback if the module can't be imported
-    def generate_synthetic_data(start_date, end_date, num_products=5):
-        """Generate synthetic sales data"""
-        date_range = pd.date_range(start=start_date, end=end_date, freq='D')
-        data = []
-        
-        for product_id in range(1, num_products + 1):
-            for date in date_range:
-                # Add some seasonality and trends
-                base_sales = 100 + product_id * 20
-                seasonal_factor = 1 + 0.3 * np.sin(2 * np.pi * date.dayofyear / 365)
-                trend_factor = 1 + 0.001 * (date - pd.Timestamp('2023-01-01')).days
-                noise = np.random.normal(0, 0.1)
-                
-                sales = int(base_sales * seasonal_factor * trend_factor * (1 + noise))
-                data.append({
-                    'date': date,
-                    'product_id': f'Product_{product_id}',
-                    'sales': max(0, sales)
-                })
-        
-        return pd.DataFrame(data)
+# Define our own data generation function (no external dependencies)
+def generate_synthetic_data(start_date, end_date, num_products=5):
+    """Generate synthetic sales data"""
+    date_range = pd.date_range(start=start_date, end=end_date, freq='D')
+    data = []
+    
+    for product_id in range(1, num_products + 1):
+        for date in date_range:
+            # Add some seasonality and trends
+            base_sales = 100 + product_id * 20
+            seasonal_factor = 1 + 0.3 * np.sin(2 * np.pi * date.dayofyear / 365)
+            trend_factor = 1 + 0.001 * (date - pd.Timestamp('2023-01-01')).days
+            noise = np.random.normal(0, 0.1)
+            
+            sales = int(base_sales * seasonal_factor * trend_factor * (1 + noise))
+            data.append({
+                'date': date,
+                'product_id': f'Product_{product_id}',
+                'sales': max(0, sales)
+            })
+    
+    return pd.DataFrame(data)
 
 # Page configuration
 st.set_page_config(
