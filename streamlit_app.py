@@ -13,9 +13,8 @@ warnings.filterwarnings('ignore')
 # Add src to path to import our modules
 sys.path.append('src')
 
-# Import our custom modules
+# Import our custom modules (only the data generation for now)
 from data.generate_synthetic_data import generate_synthetic_data
-from training.train import train_and_register_model
 
 # Page configuration
 st.set_page_config(
@@ -112,7 +111,8 @@ def show_overview():
             "Data Processing": "Azure Databricks",
             "ML Platform": "Azure Machine Learning",
             "Model": "Prophet",
-            "Language": "Python"
+            "Language": "Python",
+            "Web Interface": "Streamlit"
         }
         
         for tech, platform in tech_stack.items():
